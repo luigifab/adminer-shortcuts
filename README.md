@@ -6,7 +6,7 @@ For more information, go to https://www.luigifab.fr/adminer/shortcuts (IPv6 is r
 
 This repository is a mirror.
 
-- Current version: 1.3.0 (01/01/2020)
+- Current version: 1.4.0 (03/03/2020)
 - Compatibility: Adminer 4.3 / 4.4 / 4.5 / 4.6 / 4.7 - PHP 5.6 / 7.0 / 7.1 / 7.2 / 7.3 / 7.4
 - Client compatibility: Firefox 27+, Chrome 29+, Opera 17+, Edge 14+, Safari 9+
 - License: GNU GPL 2

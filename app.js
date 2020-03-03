@@ -1,6 +1,6 @@
 /**
  * Created W/25/10/2017
- * Updated J/07/11/2019
+ * Updated J/30/01/2020
  *
  * Copyright 2017-2020 | Fabrice Creuzot (luigifab) <code~luigifab~fr>
  * https://www.luigifab.fr/adminer/shortcuts
@@ -24,9 +24,11 @@ if (window.NodeList && !NodeList.prototype.forEach) {
 	};
 }
 
-var shortcuts = {
+var shortcuts = new (function () {
 
-	start: function () {
+	"use strict";
+
+	this.start = function () {
 
 		var elem = document.getElementById('shortcutsField'), root, data;
 		if (elem) {
@@ -55,14 +57,16 @@ var shortcuts = {
 					root.appendChild(elem);
 				});
 			}
+
+			document.getElementById('shortcutsClear').addEventListener('click', shortcuts.clear);
 		}
 
 		elem = document.querySelectorAll('#fieldset-search select[name*="[op]"]');
 		if (elem.length === 1)
 			elem[0].value = 'LIKE %%';
-	},
+	};
 
-	filter: function (ev) {
+	this.filter = function (ev) {
 
 		var words, tmp, text, show, size, i, search = (typeof ev == 'string') ? ev : ev.target.value;
 		document.querySelectorAll('#tables a.structure, #tables a.view, #tables-views + form tbody th a[id][title]').forEach(function (line) {
@@ -122,9 +126,9 @@ var shortcuts = {
 		});
 
 		shortcuts.storage('shortcuts_' + shortcuts.dbname, search);
-	},
+	};
 
-	history: function (ev) {
+	this.history = function (ev) {
 
 		var elem  = document.getElementById('shortcutsHistory').querySelector('li.foc'),
 		    input = document.getElementById('shortcutsField'),
@@ -211,9 +215,9 @@ var shortcuts = {
 		else if (elem) {
 			elem.removeAttribute('class');
 		}
-	},
+	};
 
-	move: function (next) {
+	this.move = function (next) {
 
 		var root = document.getElementById('shortcutsHistory'), elem;
 		if (elem = root.querySelector('li.foc')) {
@@ -230,13 +234,24 @@ var shortcuts = {
 		else if (elem = root.querySelector('li')) {
 			elem.setAttribute('class', 'foc');
 		}
-	},
+	};
 
-	unload: function () {
+	this.clear = function () {
+
+		var elem = document.getElementById('shortcutsField');
+		elem.value = '';
+		shortcuts.filter('');
+		elem.focus();
+
+		if (elem = document.getElementById('shortcutsHistory').querySelector('li.foc'))
+			elem.removeAttribute('class');
+	};
+
+	this.unload = function () {
 		this.storage('shortcutsHistory', this.storage('shortcutsHistory'));
-	},
+	};
 
-	storage: function (key, value) {
+	this.storage = function (key, value) {
 
 		// remove
 		if (value === null) {
@@ -252,8 +267,9 @@ var shortcuts = {
 		else {
 			return localStorage.getItem(key) || sessionStorage.getItem(key);
 		}
-	}
-};
+	};
+
+})();
 
 if (typeof self.addEventListener == 'function') {
 	self.addEventListener('load', shortcuts.start.bind(shortcuts));
