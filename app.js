@@ -1,6 +1,6 @@
 /**
  * Created W/25/10/2017
- * Updated J/30/01/2020
+ * Updated V/21/02/2020
  *
  * Copyright 2017-2020 | Fabrice Creuzot (luigifab) <code~luigifab~fr>
  * https://www.luigifab.fr/adminer/shortcuts
@@ -68,7 +68,7 @@ var shortcuts = new (function () {
 
 	this.filter = function (ev) {
 
-		var words, tmp, text, show, size, i, search = (typeof ev == 'string') ? ev : ev.target.value;
+		var words, tmp, text, show, size, cnt, search = (typeof ev == 'string') ? ev : ev.target.value;
 		document.querySelectorAll('#tables a.structure, #tables a.view, #tables-views + form tbody th a[id][title]').forEach(function (line) {
 
 			show = [];
@@ -86,7 +86,7 @@ var shortcuts = new (function () {
 					words = words.split(' ');
 					size  = words.length;
 					text  = line.textContent.toLowerCase().trim(); // dans quoi on cherche
-					i     = 0;
+					cnt   = 0;
 
 					words.forEach(function (word) {
 						if ((word === '-') || (word === '|')) {
@@ -102,17 +102,17 @@ var shortcuts = new (function () {
 							while (tmp.length > 0) {
 								word = tmp.pop();
 								if ((word.length > 0) && (text.indexOf(word) > -1)) {
-									i++;
-									break;
+									tmp = '';
+									cnt++;
 								}
 							}
 						}
 						else if (text.indexOf(word) > -1) {
-							i++;
+							cnt++;
 						}
 					});
 
-					show.push(i === size);
+					show.push(cnt === size);
 				}
 				else {
 					show.push(true);
