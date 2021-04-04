@@ -1,8 +1,8 @@
 /**
  * Created W/25/10/2017
- * Updated V/21/02/2020
+ * Updated V/05/03/2021
  *
- * Copyright 2017-2020 | Fabrice Creuzot (luigifab) <code~luigifab~fr>
+ * Copyright 2017-2021 | Fabrice Creuzot (luigifab) <code~luigifab~fr>
  * https://www.luigifab.fr/adminer/shortcuts
  *
  * This program is free software, you can redistribute it or modify
@@ -61,6 +61,15 @@ var shortcuts = new (function () {
 			document.getElementById('shortcutsClear').addEventListener('click', shortcuts.clear);
 		}
 
+		elem = document.getElementById('shortcutsEditField');
+		if (elem) {
+			elem.addEventListener('input', shortcuts.filter);    // pour nous
+			elem.removeEventListener('focus', inputFocus);       // adminer
+			elem.removeEventListener('blur', inputBlur);         // adminer
+			elem.parentNode.removeAttribute('style');
+			document.getElementById('shortcutsEditClear').addEventListener('click', shortcuts.clear);
+		}
+
 		elem = document.querySelectorAll('#fieldset-search select[name*="[op]"]');
 		if (elem.length === 1)
 			elem[0].value = 'LIKE %%';
@@ -68,8 +77,12 @@ var shortcuts = new (function () {
 
 	this.filter = function (ev) {
 
-		var words, tmp, text, show, size, cnt, search = (typeof ev == 'string') ? ev : ev.target.value;
-		document.querySelectorAll('#tables a.structure, #tables a.view, #tables-views + form tbody th a[id][title]').forEach(function (line) {
+		var query, words, tmp, text, show, size, cnt, search = (typeof ev == 'string') ? ev : ev.target.value, original = true;
+		if ((typeof ev == 'object') && (ev.target.getAttribute('id').indexOf('Edit') > 0))
+			original = false;
+
+		query = original ? '#tables a.structure, #tables a.view, #tables-views + form tbody th a[id][title]' : '#form table.layout th span[title]';
+		document.querySelectorAll(query).forEach(function (line) {
 
 			show = [];
 
@@ -119,13 +132,15 @@ var shortcuts = new (function () {
 				}
 			//});
 
-			if (line.hasAttribute('id'))
+			// cache ou affiche
+			if (!original || line.hasAttribute('id'))
 				line.parentNode.parentNode.setAttribute('style', (show.indexOf(false) > -1) ? 'display:none;' : '');
 			else
 				line.parentNode.setAttribute('style', (show.indexOf(false) > -1) ? 'display:none;' : 'display:block;');
 		});
 
-		shortcuts.storage('shortcuts_' + shortcuts.dbname, search);
+		if (original)
+			shortcuts.storage('shortcuts_' + shortcuts.dbname, search);
 	};
 
 	this.history = function (ev) {
@@ -236,11 +251,11 @@ var shortcuts = new (function () {
 		}
 	};
 
-	this.clear = function () {
+	this.clear = function (ev) {
 
-		var elem = document.getElementById('shortcutsField');
+		var elem = ev.target.parentNode.querySelector('input');
 		elem.value = '';
-		shortcuts.filter('');
+		shortcuts.filter({ target: elem });
 		elem.focus();
 
 		if (elem = document.getElementById('shortcutsHistory').querySelector('li.foc'))
