@@ -1,6 +1,6 @@
 /**
  * Created W/25/10/2017
- * Updated V/05/03/2021
+ * Updated V/23/04/2021
  *
  * Copyright 2017-2021 | Fabrice Creuzot (luigifab) <code~luigifab~fr>
  * https://www.luigifab.fr/adminer/shortcuts
@@ -133,10 +133,20 @@ var shortcuts = new (function () {
 			//});
 
 			// cache ou affiche
-			if (!original || line.hasAttribute('id'))
+			if (!original || line.hasAttribute('id')) {
 				line.parentNode.parentNode.setAttribute('style', (show.indexOf(false) > -1) ? 'display:none;' : '');
-			else
+				// tables et vues (empèche la sélection des tables)
+				tmp = line.parentNode.parentNode.querySelector('input');
+				if (tmp && line.hasAttribute('id')) {
+					if (show.indexOf(false) > -1)
+						tmp.removeAttribute('name');
+					else
+						tmp.setAttribute('name', 'tables[]');
+				}
+			}
+			else {
 				line.parentNode.setAttribute('style', (show.indexOf(false) > -1) ? 'display:none;' : 'display:block;');
+			}
 		});
 
 		if (original)
