@@ -1,6 +1,6 @@
 /**
  * Created W/25/10/2017
- * Updated V/23/04/2021
+ * Updated D/05/09/2021
  *
  * Copyright 2017-2021 | Fabrice Creuzot (luigifab) <code~luigifab~fr>
  * https://www.luigifab.fr/adminer/shortcuts
@@ -28,7 +28,9 @@ var shortcuts = new (function () {
 
 	"use strict";
 
-	this.start = function () {
+	this.init = function () {
+
+		console.info('shortcuts.app - hello');
 
 		var elem = document.getElementById('shortcutsField'), root, data;
 		if (elem) {
@@ -219,7 +221,7 @@ var shortcuts = new (function () {
 			if (elem) {
 
 				console.log('shortcuts 46/suppr = remove history');
-				elem.parentNode.removeChild(elem);
+				elem.remove();
 
 				data = data.replace('#' + elem.textContent + '#', '#');
 				shortcuts.storage('shortcutsHistory', data);
@@ -272,10 +274,6 @@ var shortcuts = new (function () {
 			elem.removeAttribute('class');
 	};
 
-	this.unload = function () {
-		this.storage('shortcutsHistory', this.storage('shortcutsHistory'));
-	};
-
 	this.storage = function (key, value) {
 
 		// remove
@@ -294,9 +292,13 @@ var shortcuts = new (function () {
 		}
 	};
 
+	this.unload = function () {
+		this.storage('shortcutsHistory', this.storage('shortcutsHistory'));
+	};
+
 })();
 
 if (typeof self.addEventListener == 'function') {
-	self.addEventListener('load', shortcuts.start.bind(shortcuts));
+	self.addEventListener('load', shortcuts.init.bind(shortcuts));
 	self.addEventListener('beforeunload', shortcuts.unload.bind(shortcuts));
 }
