@@ -1,3 +1,5 @@
+Stop russian war. **🇺🇦 Free Ukraine!**
+
 # shortcuts
 
 A plugin to filter tables by name for [Adminer](https://github.com/vrana/adminer).
@@ -6,8 +8,8 @@ For more information, go to https://www.luigifab.fr/adminer/shortcuts (IPv6 is r
 
 This repository is a mirror.
 
-- Current version: 1.6.1 (10/10/2021)
-- Compatibility: Adminer 4.3 / 4.4 / 4.5 / 4.6 / 4.7 / 4.8 - PHP 5.6 / 7.0 / 7.1 / 7.2 / 7.3 / 7.4 / 8.0
+- Current version: 1.6.2 (01/01/2023)
+- Compatibility: Adminer 4.3 / 4.4 / 4.5 / 4.6 / 4.7 / 4.8 - PHP 5.6 / 7.0 / 7.1 / 7.2 / 7.3 / 7.4 / 8.0 / 8.1 / 8.2
 - Client compatibility: Firefox 36+, Chrome 32+, Opera 19+, Edge 16+, Safari 9+
 - License: GNU GPL 2+
 

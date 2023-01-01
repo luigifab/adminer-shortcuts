@@ -1,9 +1,9 @@
 /**
  * Created W/25/10/2017
- * Updated D/05/09/2021
+ * Updated M/22/03/2022
  *
- * Copyright 2017-2021 | Fabrice Creuzot (luigifab) <code~luigifab~fr>
- * https://www.luigifab.fr/adminer/shortcuts
+ * Copyright 2017-2023 | Fabrice Creuzot (luigifab) <code~luigifab~fr>
+ * https://github.com/luigifab/adminer-shortcuts
  *
  * This program is free software, you can redistribute it or modify
  * it under the terms of the GNU General Public License (GPL) as published
@@ -109,7 +109,7 @@ var shortcuts = new (function () {
 						}
 						else if (word.charAt(0) === '-') {
 							size--;
-							if (text.indexOf(word.substr(1)) > -1)
+							if (text.indexOf(word.substring(1)) > -1)
 								size = -1;
 						}
 						else if (word.indexOf('|') > -1) {
