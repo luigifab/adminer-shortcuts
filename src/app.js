@@ -2,7 +2,7 @@
  * Created W/25/10/2017
  * Updated M/22/03/2022
  *
- * Copyright 2017-2023 | Fabrice Creuzot (luigifab) <code~luigifab~fr>
+ * Copyright 2017-2025 | Fabrice Creuzot (luigifab) <code~luigifab~fr>
  * https://github.com/luigifab/adminer-shortcuts
  *
  * This program is free software, you can redistribute it or modify
