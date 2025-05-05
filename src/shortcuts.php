@@ -1,7 +1,9 @@
 <?php
 /**
+ * To filter the list of tables by name & To automatically sort data from the most recent to the oldest.
+ *
  * Created W/25/10/2017
- * Updated L/31/03/2025
+ * Updated M/08/04/2025
  *
  * Copyright 2017-2025 | Fabrice Creuzot (luigifab) <code~luigifab~fr>
  * https://github.com/luigifab/adminer-shortcuts
@@ -19,7 +21,7 @@
 
 class AdminerShortcuts {
 
-	public const VERSION = '1.7.0';
+	public const VERSION = '1.7.1';
 	protected $_isV5;
 	protected $_superOrder;
 
